@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+    <h1>{{ 'feed.head'|trans }}</h1>
+
+    <section id="items" class="items">
+    {% for item in items %}
+        <h2 class="title">{{ item.title }}</h2>
+        <article class="item">
+            <div class="fl"><img alt="" src="{{ item.image }}"/></div>
+            <div class="fl pad1">{{ item.description }}</div>
+            <div class="fr"><a href="{{ item.link }}" target="_blank">{{ 'feed.read_more'|trans }}</a> </div>
+            <div class="clear"></div>
+        </article>
+    {% endfor %}
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script id="template" type="text/html">
+        <h2 class="title">%title%</h2>
+        <article class="item">
+            <div class="fl"><img alt="" class="img" src="%image%"/></div>
+            <div class="fl pad1 desc">%desc%</div>
+            <div class="fr"><a class="link" href="%link%" target="_blank">{{ 'feed.read_more'|trans }}</a> </div>
+            <div class="clear"></div>
+        </article>
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            setInterval("refreshFeed()", 60000);
+        });
+
+        function refreshFeed(){
+            $('#items').html('<div  class="loader"><img alt="" src="{{ asset('bundles/roktest/img/ajaxloader.gif') }}"/></div>');
+            $.getJSON( "{{ path('feed', {'_format': 'json'}) }}", function( data ) {
+                var content = [];
+                $('#items').html('');
+                for(i=0;i<data.length;i++){
+                    content[i] = $('#template').html().replace('%title%', data[i].title).replace('%image%', data[i].image).replace('%desc%', data[i].description).replace('%link%', data[i].link);
+                }
+                $('#items').html(content.join(''));
+            });
+        }
+
+    </script>
+
+{% endblock %}

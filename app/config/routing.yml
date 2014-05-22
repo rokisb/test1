@@ -1,0 +1,4 @@
+rok_test:
+    resource: "@RokTestBundle/Controller/"
+    type:     annotation
+    prefix:   /

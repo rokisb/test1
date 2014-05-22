@@ -1,0 +1,11 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: tele2_preinstall_dev
+    database_user: root
+    database_password: root
+    locale: en
+    secret: fqwefqwefqwfqwefgeqrgergerg
+    feed.url: 'http://feeds.bbci.co.uk/news/technology/rss.xml'
+    feed.namespace: 'http://search.yahoo.com/mrss/'

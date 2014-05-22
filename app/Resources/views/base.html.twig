@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets
+            'bundles/roktest/css/style.css'
+            filter='cssrewrite,?yui_css' output='css/compiled/styles.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body  {% block bodyclass %}{% endblock %}>
+        <div class="center">
+            {% block body %}{% endblock %}
+        </div>
+
+    {% block javascripts %}
+        {% javascripts
+        'bundles/roktest/js/jquery-2.1.1.min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+    </body>
+</html>

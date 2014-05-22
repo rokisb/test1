@@ -1,0 +1,27 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    providers:
+        in_memoryprovider:
+            memory:
+                users:
+                    admin: { password: admin, roles: 'ROLE_API_ADMIN' }
+
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern:   /
+            stateless: true
+            http_basic:
+                provider: in_memoryprovider
+                realm: "Secured Demo Area"
+
+
+    access_control:
+
+        - { path: ^/$, role: IS_AUTHENTICATED_FULLY }
